@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HelloWorld 合約測試</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.15.0/ethers.umd.min.js"></script>
+</head>
+<body>
+
+<h2>HelloWorld 合約測試</h2>
+
+<button onclick="connect()">連接 MetaMask</button>
+
+<p>目前訊息：<span id="msg">尚未讀取</span></p>
+
+<input id="input" placeholder="輸入新訊息">
+<button onclick="update()">更新訊息</button>
+
+<script>
+const CONTRACT_ADDRESS = "0x21c6b1991a23D121dc9eCA3B959B4D77D1669452";
+
+const ABI = [
+  {
+    "inputs": [],
+    "name": "message",
+    "outputs": [{"internalType":"string","name":"","type":"string"}],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{"internalType":"string","name":"_msg","type":"string"}],
+    "name": "updateMessage",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+];
+
+let provider, signer, contract;
+
+async function connect() {
+  await window.ethereum.request({ method: "eth_requestAccounts" });
+
+  provider = new ethers.BrowserProvider(window.ethereum);
+  signer = await provider.getSigner();
+  contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
+
+  read();
+}
+
+async function read() {
+  const message = await contract.message();
+  document.getElementById("msg").innerText = message;
+}
+
+async function update() {
+  const text = document.getElementById("input").value;
+  const tx = await contract.updateMessage(text);
+  await tx.wait();
+  read();
+}
+</script>
+
+</body>
+</html>
