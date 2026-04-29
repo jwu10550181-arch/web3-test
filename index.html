@@ -5,13 +5,39 @@
   <title>HelloWorld 合約測試</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.15.0/ethers.umd.min.js"></script>
 </head>
-<body>
+<body style="font-family: Arial; background:#f5f5f5; text-align:center;">
 
-<h2>HelloWorld 合約測試</h2>
+  <h1>HelloWorld 合約測試</h1>
 
-<button onclick="connect()">連接 MetaMask</button>
+  <div style="background:white; width:500px; margin:auto; padding:20px; border-radius:10px; box-shadow:0 0 10px #ccc;">
 
-<p>目前訊息：<span id="msg">尚未讀取</span></p>
+    <p>這是一個簡單的網頁，用於測試已部署在 Sepolia 網路上的 HelloWorld 合約。</p>
+
+    <hr>
+
+    <h2>當前訊息</h2>
+
+    <button onclick="connect()" style="width:100%; padding:10px;">連接 MetaMask</button>
+
+    <p>目前訊息：<span id="msg">尚未讀取</span></p>
+
+    <hr>
+
+    <h2>更新訊息</h2>
+
+    <input id="input" placeholder="輸入新的訊息..." style="width:100%; padding:8px;"><br><br>
+
+    <button onclick="update()" style="width:100%; padding:10px;">更新訊息</button>
+
+    <p style="color:orange;">⚠ 此操作會發送一筆交易，需要支付 Gas 費用。</p>
+
+    <hr>
+
+    <h2>交易日誌</h2>
+
+    <div id="log" style="background:#eee; padding:10px;">尚未操作</div>
+
+  </div>
 
 <input id="input" placeholder="輸入新訊息">
 <button onclick="update()">更新訊息</button>
